@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormPageComponent } from './components/form-page/form-page.component';
+import { TodoFormComponent } from './components/todo-form/todo-form.component';
 import { HomePagesComponent } from './pages/home-pages/home-pages.component';
 
 const routes: Routes = [
@@ -11,12 +11,12 @@ const routes: Routes = [
   },
   {
     path: 'forms',
-    component: FormPageComponent,
+    component: TodoFormComponent,
     title: 'Create',
   },
   {
     path: 'forms/:id',
-    component: FormPageComponent,
+    component: TodoFormComponent,
     title: 'Update',
   },
 ];

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { People } from '@modules/home/models/people';
@@ -7,13 +7,16 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-form-page',
-  templateUrl: './form-page.component.html',
-  styleUrls: ['./form-page.component.scss'],
+  selector: 'app-todo-form',
+  templateUrl: './todo-form.component.html',
+  styleUrls: ['./todo-form.component.scss'],
 })
-export class FormPageComponent implements OnInit, OnDestroy {
-  loginForm = this.fb.nonNullable.group({
-    message: ['', [Validators.required]],
+export class TodoFormComponent {
+  todoForm = this.fb.nonNullable.group({
+    message: [
+      '',
+      [Validators.required, Validators.maxLength(200), Validators.minLength(5)],
+    ],
     name: ['', [Validators.required]],
     lastname: ['', [Validators.required]],
     birth: ['', [Validators.required]],
@@ -23,8 +26,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
   option = {
     title: 'Formulario de Crear',
-    button: 'CREAR',
-    classBtn: 'btn-primary',
+    button: 'Crear',
+    classBtn: 'primary',
   };
 
   listObservables$ = Array<Subscription>();
@@ -43,12 +46,12 @@ export class FormPageComponent implements OnInit, OnDestroy {
       this.option = {
         title: 'Formulario de Actualización',
         button: 'Actualizar',
-        classBtn: 'btn-warning',
+        classBtn: 'accent',
       };
       const observer1$ = this.peopleSvc
         .getOnePeople(this.id)
         .subscribe((resOk) => {
-          this.loginForm.patchValue({
+          this.todoForm.patchValue({
             name: resOk.name,
             lastname: resOk.lastname,
             birth: resOk.birth,
@@ -67,12 +70,12 @@ export class FormPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     if (this.id !== null) {
       //TODO: Update
-      if (this.loginForm.valid) {
+      if (this.todoForm.valid) {
         const body: People = {
-          name: this.loginForm.getRawValue().name,
-          lastname: this.loginForm.getRawValue().lastname,
-          birth: this.loginForm.getRawValue().birth,
-          message: this.loginForm.getRawValue().message,
+          name: this.todoForm.getRawValue().name,
+          lastname: this.todoForm.getRawValue().lastname,
+          birth: this.todoForm.getRawValue().birth,
+          message: this.todoForm.getRawValue().message,
         };
         const observer2$ = this.peopleSvc.updatePeople(this.id, body).subscribe(
           (resOk) => {
@@ -82,7 +85,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
             );
             setTimeout(() => {
               this.router.navigate(['/app']);
-            }, 3 * 1000);
+            }, 2 * 1000);
           },
           (resFail) => {
             this.toastr.error(
@@ -98,19 +101,19 @@ export class FormPageComponent implements OnInit, OnDestroy {
       }
     } else {
       //TODO: Create
-      if (this.loginForm.valid) {
+      if (this.todoForm.valid) {
         const body: People = {
-          name: this.loginForm.getRawValue().name,
-          lastname: this.loginForm.getRawValue().lastname,
-          birth: this.loginForm.getRawValue().birth,
-          message: this.loginForm.getRawValue().message,
+          name: this.todoForm.getRawValue().name,
+          lastname: this.todoForm.getRawValue().lastname,
+          birth: this.todoForm.getRawValue().birth,
+          message: this.todoForm.getRawValue().message,
         };
         const observer3$ = this.peopleSvc.createPeople(body).subscribe(
           (resOk) => {
             this.toastr.success('Se creo la tarea de manera correcta', 'Creación de Tarea 👏');
             setTimeout(() => {
               this.router.navigate(['/app']);
-            }, 3 * 1000);
+            }, 2 * 1000);
           },
           (resFail) => {
             this.toastr.error(
