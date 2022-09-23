@@ -6,28 +6,32 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  @Input() listPeople !: People[];
+  @Input() listPeople!: People[];
   @Output() idEvent = new EventEmitter<string>(true);
-  displayedColumns: string[] = ['lastname', 'name', 'birth', 'message','options'];
+  displayedColumns: string[] = [
+    'name',
+    'lastname',
+    'birth',
+    'message',
+    'options',
+  ];
   constructor(
     private readonly toastr: ToastrService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  onDelete(element:People): void {
-    if(confirm('¿Estas seguro de eliminar la tarea?')){
+  onDelete(element: People): void {
+    if (confirm('¿Estas seguro de eliminar la tarea?')) {
       this.idEvent.emit(element.id);
     }
   }
 
-  onUpdate(element: People){
+  onUpdate(element: People) {
     console.log(element.id);
-
   }
-
 }
