@@ -1,6 +1,20 @@
 <!-- <app-navbar></app-navbar> -->
 <!-- <app-list-page [listPeople]="listPeople" (idEvent)="deletePeople($event)"></app-list-page> -->
-<app-table
-  [listPeople]="listPeople"
-  (idEvent)="deletePeople($event)"
-></app-table>
+<ng-container *ngIf="listPeople.length > 0; else loading">
+  <app-table
+    [listPeople]="listPeople"
+    (idEvent)="deletePeople($event)"
+  ></app-table>
+</ng-container>
+
+<ng-template #loading>
+  <mat-spinner
+    style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+  </mat-spinner>
+</ng-template>

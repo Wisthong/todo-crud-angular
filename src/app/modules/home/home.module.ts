@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     HomePagesComponent,
@@ -27,6 +28,7 @@ import {MatDialogModule} from '@angular/material/dialog';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatInputModule,
     MatDialogModule,
