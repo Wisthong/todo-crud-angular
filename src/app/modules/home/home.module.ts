@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePagesComponent } from './pages/home-pages/home-pages.component';
@@ -17,14 +17,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import localePy from '@angular/common/locales/es-CO';
+registerLocaleData(localePy, 'es');
 @NgModule({
-  declarations: [
-    HomePagesComponent,
-    TodoFormComponent,
-    TableComponent,
-  ],
+  declarations: [HomePagesComponent, TodoFormComponent, TableComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -43,5 +41,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatSortModule,
   ],
+  providers:[{provide: LOCALE_ID,useValue:'es'}]
 })
 export class HomeModule {}
